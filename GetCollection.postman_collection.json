@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.restful-api.dev/objects/7",
+					"raw": "https://api.restful-api.dev/objects/6",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -69,7 +69,7 @@
 					],
 					"path": [
 						"objects",
-						"7"
+						"6"
 					]
 				}
 			},
