@@ -237,6 +237,145 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Récupérer la réponse JSON\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"// Vérifier le status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Vérifier que accessToken existe\r",
+							"pm.test(\"Access token is present\", function () {\r",
+							"    pm.expect(jsonData.accessToken).to.exist;\r",
+							"});\r",
+							"\r",
+							"// Vérifier que refreshToken existe\r",
+							"pm.test(\"Refresh token is present\", function () {\r",
+							"    pm.expect(jsonData.refreshToken).to.exist;\r",
+							"});\r",
+							"\r",
+							"// Stocker les tokens dans l'environnement\r",
+							"pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+							"pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+							"\r",
+							"//Vérifier que le token n’est pas vide\r",
+							"\r",
+							"pm.test(\"Access token is not empty\", function () {\r",
+							"    pm.expect(jsonData.accessToken.length).to.be.above(10);\r",
+							"});\r",
+							"\r",
+							"//Vérifier que le token ressemble à un JWT (3 parties séparées par des points)\r",
+							"\r",
+							"pm.test(\"Access token format is valid\", function () {\r",
+							"    pm.expect(jsonData.accessToken.split('.').length).to.eql(3);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Vérifier la présence d’un champ utilisateur (id, username…\r",
+							"pm.test(\"User username is present\", function () {\r",
+							"    pm.expect(jsonData.username).to.exist;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"emilys\",\r\n\"password\": \"emilyspass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/auth/login? username=emilys&password=emilyspass",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": " username",
+							"value": "emilys"
+						},
+						{
+							"key": "password",
+							"value": "emilyspass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"createdAt\": \"2026-01-01T23:58:28.870Z\",\r\n    \"name\": \"Earl DuBuque de france\",\r\n    \"avatar\": \"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/21.jpg\"\r\n  \r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6957bb19f7ea690182d2e402.mockapi.io/api/andouv1/andouv1api/2",
+					"protocol": "https",
+					"host": [
+						"6957bb19f7ea690182d2e402",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"andouv1",
+						"andouv1api",
+						"2"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
